@@ -23,8 +23,15 @@ func main() {
 }
 
 func translationHandler(writer http.ResponseWriter, request *http.Request) {
+    language := request.URL.Path[6:]
+    if len(language) == 0 {
+        fmt.Fprintf(writer, "Please select a language to translate to. The language codes available are: \n")
+        for key, value := range supportedLanguages {
+            fmt.Fprintf(writer, "%s - %s\n", key, value)
+        }
+        return
+    }
     word := generator.GenerateRandomWord()
-    language := request.URL.Path[6:]  
     req := buildTranslateRequest(word, language)
     client := http.Client{}
     resp, err := client.Do(req)
@@ -69,12 +76,12 @@ func handleResponse(resp *http.Response, writer http.ResponseWriter, language st
         fmt.Println("Error code received from the translation API: ", 
             strconv.Itoa(translation.Code) + " - " + errorResponseCodes[translation.Code])
         if translation.Code == 501 {
-            fmt.Fprintf(writer, "%s is not an accepted language code to translate. Your options are: \n", language)
+            fmt.Fprintf(writer, "%s is not an accepted language code to translate. The language codes available are: \n", language)
             for key, value := range supportedLanguages {
                 fmt.Fprintf(writer, "%s - %s\n", key, value)
             }
         } else {
-            os.Exit(1)
+            fmt.Fprintf(writer, "There was an error processing your request. Please try again.")
         }
     }
     return translation
