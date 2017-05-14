@@ -29,7 +29,5 @@ fi
 if docker run -d --name random_word_translator -p $PORT:8080 -it random_word_translator; then
 	echo "The application should now be reachable at http://localhost:$PORT/word/"
 else
-	echo "There was an error starting docker. Please make sure any other containers are killed and removed by using:"
-	echo "docker kill random_word_translator"
-	echo "docker rm random_word_translator"
+	echo "There was an error starting docker. Please make sure any other containers are killed and removed by using the `-r` parameter."
 fi
