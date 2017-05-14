@@ -41,7 +41,7 @@ func translationHandler(writer http.ResponseWriter, request *http.Request) {
     apiResponse := handleResponse(resp, writer, language)
 
     for _, translatedWord := range apiResponse.Text {
-        fmt.Fprintf(writer, "Um tradução de \"%s\" é: %s \n", word, translatedWord)
+        fmt.Fprintf(writer, "The translation of \"%s\" into %s is: %s \n", word, supportedLanguages[language], translatedWord)
     }
 }
 
