@@ -13,26 +13,25 @@ import (
 
 var translatorAPI = "https://translate.yandex.net/api/v1.5/tr.json/translate"
 var api_key = os.Getenv("TRANSLATION_API_KEY")
-var language = "pt"
 
 func main() {
-    http.HandleFunc("/", translateMyWord)
+    http.HandleFunc("/word/", translationHandler)
     http.ListenAndServe(":8080", nil)
 
 }
 
-func translateMyWord(http.ResponseWriter, *http.Request) {
+func translationHandler(writer http.ResponseWriter, request *http.Request) {
     word := generator.GenerateRandomWord()
-    request := buildRequest(word, language)
+    req := buildRequest(word, request.URL.Path[6:])
     client := http.Client{}
-    resp, err := client.Do(request)
+    resp, err := client.Do(req)
     if err != nil {
         panic(err)
     }
     apiResponse := handleResponse(resp)
 
     for _, translatedWord := range apiResponse.Text {
-          fmt.Println("Um tradução de \"" + word + "\" é: " + translatedWord + "\n")
+        fmt.Fprintf(writer, "Um tradução de \"%s\" é: %s \n", word, translatedWord)
     }
 }
 
