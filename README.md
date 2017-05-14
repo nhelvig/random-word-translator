@@ -12,8 +12,9 @@ Run the `startContainer.sh` script. This will both build the images and start th
 _Note: You may need to give it execute permissions with `chmod +x /path/to/script/startContainer.sh`_  
 
 The script takes two options:  
-`-p` to specify which port you would like (by default it uses 9001)  
+`-p {your port #}` to specify which port you would like (by default it uses 9001)  
 `-i no` to declare if you do not want to build the images again (it does by default)  
+`-r` to reset the container (this will run `docker kill` and `docker rm` on a previously running container)
 By default, it will use port 9001. You can pass another port as a parameter to the script (i.e. `./startContainer.sh 12345`)
 
 ### Using the application

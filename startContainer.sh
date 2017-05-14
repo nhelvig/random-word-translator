@@ -1,7 +1,9 @@
 #!/bin/bash
 
-while getopts ":i:p:" opt; do
+while getopts ":i:p:r" opt; do
   case $opt in
+    r) RESET=true
+    ;;
     i) BUILD="$OPTARG"
     ;;
     p) PORT="$OPTARG"
@@ -10,6 +12,11 @@ while getopts ":i:p:" opt; do
     ;;
   esac
 done
+
+if [[ $RESET == true ]]; then
+  docker kill random_word_translator
+  docker rm random_word_translator
+fi
 
 if [[ $BUILD != "no" ]]; then
 	docker build -t random_word_translator .
