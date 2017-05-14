@@ -16,6 +16,12 @@ var api_key = os.Getenv("TRANSLATION_API_KEY")
 var language = "pt"
 
 func main() {
+    http.HandleFunc("/", translateMyWord)
+    http.ListenAndServe(":8080", nil)
+
+}
+
+func translateMyWord(http.ResponseWriter, *http.Request) {
     word := generator.GenerateRandomWord()
     request := buildRequest(word, language)
     client := http.Client{}
@@ -28,7 +34,6 @@ func main() {
     for _, translatedWord := range apiResponse.Text {
           fmt.Println("Um tradução de \"" + word + "\" é: " + translatedWord + "\n")
     }
-
 }
 
 func buildRequest(word string, language string) *http.Request {
@@ -74,8 +79,8 @@ type Translation struct {
 
 var errorResponseCodes = map[int]string {
     401 : "Invalid API key",
-    402    : "Blocked API key",
-    404    : "Exceeded the daily limit on the amount of translated text",
-    413    : "Exceeded the maximum text size",
-    422    : "The text cannot be translated",
-    501    : "The specified translation direction is not supported"}
+    402 : "Blocked API key",
+    404 : "Exceeded the daily limit on the amount of translated text",
+    413 : "Exceeded the maximum text size",
+    422 : "The text cannot be translated",
+    501 : "The specified translation direction is not supported"}

@@ -248,7 +248,10 @@ var words = []string{"ability","able","aboard","about","above","accept","acciden
   "work","worker","world","worried","worry","worse","worth","would",
   "wrapped","write","writer","writing","written","wrong","wrote","yard",
   "year","yellow","yes","yesterday","yet","you","young","younger",
-  "your","yourself","youth","zero","zoo"}
+  "your","yourself","youth","zero","zoo", "lazy", "walk", "dead", "kill",
+  "garden", "now", "second", "darts", "picture", "alcohol", "golf", "still",
+  "scab", "cry", "muscle", "arrow", "politics", "lamp", "deoderant", "laundry",
+  "supplements", "suitcase", "catering", "ingredients", "closet", "plug", "random"}
 
 func GenerateRandomWord() string {
   rand.Seed(int64(time.Now().Nanosecond()))
