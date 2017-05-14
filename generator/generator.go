@@ -254,6 +254,6 @@ var words = []string{"ability","able","aboard","about","above","accept","acciden
   "supplements", "suitcase", "catering", "ingredients", "closet", "plug", "random"}
 
 func GenerateRandomWord() string {
-  rand.Seed(int64(time.Now().Nanosecond()))
-	return words[rand.Intn(len(words))]
+   rand.Seed(int64(time.Now().Nanosecond()))
+   return words[rand.Intn(len(words))]
 }
